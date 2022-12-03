@@ -79,6 +79,12 @@ public class PlayerController : MonoBehaviour
         UpdateIsMoving();
 
     }
+
+    private void LateUpdate() 
+    {
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);    
+    }
+
     // 키보드 입력을 받아 방향을 정하는 함수
     void GetDirInput()
     {
@@ -131,27 +137,30 @@ public class PlayerController : MonoBehaviour
     // 이동가능한 상태일 때 실질적인 위치인 _cellPos를 움직이는 함수
     void UpdateIsMoving()
     {
-        if (_isMoving == false)
+        if (_isMoving == false && _dir != MoveDir.None)
         {
+            Vector3Int destPos = _cellPos;
+
             switch (_dir)
             {
                 case MoveDir.Up:
-                    _cellPos += Vector3Int.up;
-                    _isMoving = true;
+                    destPos += Vector3Int.up;
                     break;
                 case MoveDir.Down:
-                    _cellPos += Vector3Int.down;
-                    _isMoving = true;
+                    destPos += Vector3Int.down;
                     break;
                 case MoveDir.Left:
-                    _cellPos += Vector3Int.left;
-                    _isMoving = true;
+                    destPos += Vector3Int.left;
                     break;
                 case MoveDir.Right:
-                    _cellPos += Vector3Int.right;
-                    _isMoving = true;
+                    destPos += Vector3Int.right;
                     break;
+            }
 
+            if (Managers.Map.CanGO(destPos))
+            {
+                _cellPos = destPos;
+                _isMoving = true;
             }
         }
     }
