@@ -5,7 +5,6 @@ using static Define;
 
 public class PlayerController : MonoBehaviour
 {
-    public Grid _grid;
     public float _speed = 5.0f;
     Vector3Int _cellPos = Vector3Int.zero;
     bool _isMoving = false;
@@ -69,7 +68,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        Vector3 pos = _grid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
         transform.position = pos;
     }
 
@@ -111,7 +110,7 @@ public class PlayerController : MonoBehaviour
         if (_isMoving == false)
             return;
 
-        Vector3 destPos = _grid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
         Vector3 moveDir = destPos - transform.position;
 
         // 도착 여부 체크
