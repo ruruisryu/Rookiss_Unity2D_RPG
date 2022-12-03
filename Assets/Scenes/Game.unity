@@ -261,7 +261,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2103436982}
   - component: {fileID: 2103436981}
-  - component: {fileID: 2103436980}
   - component: {fileID: 2103436979}
   m_Layer: 0
   m_Name: Monster
@@ -290,19 +289,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2103436980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2103436978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b03e8ce6d0454378b14b0263fac178b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 5
 --- !u!212 &2103436981
 SpriteRenderer:
   m_ObjectHideFlags: 0
