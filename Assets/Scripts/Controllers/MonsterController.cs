@@ -8,12 +8,16 @@ public class MonsterController : CreatureController
     protected override void Init()
     {
         base.Init();
+
+        State =  CreatureState.Idle;
+        Dir = MoveDir.None;
     }
 
     protected override void UpdateController()
     {
         // GetDirInput();
         base.UpdateController();
+        
     }
 
     // 키보드 입력을 받아 방향을 정하는 함수
