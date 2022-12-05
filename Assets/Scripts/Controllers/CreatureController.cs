@@ -5,13 +5,13 @@ using static Define;
 
 public class CreatureController : MonoBehaviour
 {
-    public float _speed = 5.0f;
+    protected float _speed = 5.0f;
     public Vector3Int Cellpos { get; set; } = Vector3Int.zero;
 
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
-    CreatureState _state = CreatureState.Idle;
+    protected CreatureState _state = CreatureState.Idle;
     public CreatureState State
     {
         get { return _state; }
@@ -24,8 +24,8 @@ public class CreatureController : MonoBehaviour
         }
     }
 
-    MoveDir _lastDir = MoveDir.Down;
-    MoveDir _dir = MoveDir.Down;
+    protected MoveDir _lastDir = MoveDir.Down;
+    protected MoveDir _dir = MoveDir.Down;
 
     public MoveDir Dir
     {
@@ -181,7 +181,7 @@ public class CreatureController : MonoBehaviour
     // 이동가능한 상태일 때 실질적인 위치인 _cellPos를 움직이는 함수
     protected virtual void UpdateIdle()
     {
-        if (State != CreatureState.Moving && _dir != MoveDir.None)
+        if (_dir != MoveDir.None)
         {
             Vector3Int destPos = Cellpos;
 
