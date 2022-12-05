@@ -6,7 +6,8 @@ using static Define;
 public class CreatureController : MonoBehaviour
 {
     public float _speed = 5.0f;
-    protected Vector3Int _cellPos = Vector3Int.zero;
+    public Vector3Int Cellpos { get; set; } = Vector3Int.zero;
+
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
@@ -115,7 +116,7 @@ public class CreatureController : MonoBehaviour
     {
         _sprite = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(Cellpos) + new Vector3(0.5f, 0.5f);
         transform.position = pos;
     }
 
@@ -131,7 +132,7 @@ public class CreatureController : MonoBehaviour
         if (State != CreatureState.Moving)
             return;
 
-        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(Cellpos) + new Vector3(0.5f, 0.5f);
         Vector3 moveDir = destPos - transform.position;
 
         // 도착 여부 체크
@@ -158,7 +159,7 @@ public class CreatureController : MonoBehaviour
     {
         if (State != CreatureState.Moving && _dir != MoveDir.None)
         {
-            Vector3Int destPos = _cellPos;
+            Vector3Int destPos = Cellpos;
 
             switch (_dir)
             {
@@ -175,11 +176,14 @@ public class CreatureController : MonoBehaviour
                     destPos += Vector3Int.right;
                     break;
             }
+            State = CreatureState.Moving;
 
             if (Managers.Map.CanGO(destPos))
             {
-                _cellPos = destPos;
-                State = CreatureState.Moving;
+                if (Managers.Object.Find(destPos) != null)
+                    return;
+                    
+                Cellpos = destPos;
             }
         }
     }
