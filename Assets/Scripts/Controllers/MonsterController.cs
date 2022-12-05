@@ -17,7 +17,6 @@ public class MonsterController : CreatureController
     {
         // GetDirInput();
         base.UpdateController();
-        
     }
 
     // 키보드 입력을 받아 방향을 정하는 함수

@@ -23,6 +23,8 @@ public class ObjectManager
         foreach (GameObject obj in _object)
         {
             CreatureController objCon = obj.transform.GetComponent<CreatureController>();
+            if (objCon == null)
+                continue;
             
             if ( objCon.Cellpos == cellPos)
                 return obj;
