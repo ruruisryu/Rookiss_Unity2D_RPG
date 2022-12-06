@@ -33,12 +33,6 @@ public class MonsterController : CreatureController
         Dir = MoveDir.None;
     }
 
-    protected override void UpdateController()
-    {
-        // GetDirInput();
-        base.UpdateController();
-    }
-
     protected override void UpdateIdle()
     {
         base.UpdateIdle();
@@ -52,13 +46,13 @@ public class MonsterController : CreatureController
     {
         Vector3Int moveCellDir = _destCellPos - Cellpos;
 
-        if (moveCellDir.x > 0)
+        if (moveCellDir.y > 0)
             Dir = MoveDir.Up;
-        else if (moveCellDir.x < 0)
-            Dir = MoveDir.Down;
         else if (moveCellDir.y < 0)
+            Dir = MoveDir.Down;
+        else if (moveCellDir.x < 0)
             Dir = MoveDir.Left;
-        else if (moveCellDir.y > 0)
+        else if (moveCellDir.x > 0)
             Dir = MoveDir.Right;
         else
             Dir = MoveDir.None;
@@ -82,7 +76,7 @@ public class MonsterController : CreatureController
         }
         State = CreatureState.Moving;
 
-        if (Managers.Map.CanGO(destPos))
+        if (Managers.Map.CanGO(destPos)&& Managers.Object.Find(destPos) == null)
         {
             Cellpos = destPos;
         }
