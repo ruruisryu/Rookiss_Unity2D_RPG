@@ -12,7 +12,7 @@ public class PlayerController : CreatureController
     {
         base.Init();
     }
-
+    
     protected virtual void UpdateAnimation()
     {
         if (_state == CreatureState.Idle)
