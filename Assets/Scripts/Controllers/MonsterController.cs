@@ -9,7 +9,7 @@ public class MonsterController : CreatureController
     {
         base.Init();
 
-        State =  CreatureState.Idle;
+        State = CreatureState.Idle;
         Dir = MoveDir.None;
     }
 
@@ -42,5 +42,17 @@ public class MonsterController : CreatureController
         {
             Dir = MoveDir.None;
         }
+    }
+
+    public override void OnDamaged()
+    {
+        base.OnDamaged();
+        GameObject effect = Managers.Resource.Instantiate("Effect/DieEffect");
+        effect.transform.position = gameObject.transform.position;
+        effect.GetComponent<Animator>().Play("DieAnim");
+        GameObject.Destroy(effect, 0.5f);
+
+        Managers.Object.Remove(gameObject);
+        Managers.Resource.Destroy(gameObject);
     }
 }

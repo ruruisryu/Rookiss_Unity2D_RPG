@@ -62,14 +62,9 @@ public class ArrowController : CreatureController
                 GameObject go = Managers.Object.Find(destPos);
                 if (go != null)
                 {
-                    GameObject effect = Managers.Resource.Instantiate("Effect/DieEffect");
-                    effect.transform.position = go.transform.position;
-                    Animator effAnimator = effect.GetComponent<Animator>();
-                    effAnimator.Play("DieAnim");
-                    GameObject.Destroy(effect, 0.5f);
-
-                    Managers.Object.Remove(go);
-                    Managers.Resource.Destroy(go);
+                    CreatureController cc = go.GetComponent<CreatureController>();
+                    if ( cc != null)
+                        cc.OnDamaged();
 
                     Debug.Log(go.name);
                     Managers.Resource.Destroy(gameObject);
