@@ -13,7 +13,7 @@ public class PlayerController : CreatureController
         base.Init();
     }
 
-        protected virtual void UpdateAnimation()
+    protected virtual void UpdateAnimation()
     {
         if (_state == CreatureState.Idle)
         {
@@ -97,7 +97,6 @@ public class PlayerController : CreatureController
         {
             case CreatureState.Idle:
                 GetDirInput();
-                GetIdleInput();
                 break;
             case CreatureState.Moving:
                 GetDirInput();
@@ -111,6 +110,22 @@ public class PlayerController : CreatureController
     private void LateUpdate()
     {
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+    }
+
+    protected override void UpdateIdle()
+    {
+        if (Dir != MoveDir.None)
+        {
+            State = CreatureState.Moving;
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            State = CreatureState.Skill;
+            // _coSkill = StartCoroutine("CoStartPunch");
+            _coSkill = StartCoroutine(CoStartArrow());
+        }
     }
 
     // 키보드 입력을 받아 방향을 정하는 함수
@@ -138,21 +153,11 @@ public class PlayerController : CreatureController
         }
     }
 
-    void GetIdleInput()
-    {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            State = CreatureState.Skill;
-            // _coSkill = StartCoroutine("CoStartPunch");
-            _coSkill = StartCoroutine(CoStartArrow());
-        }
-    }
-
     IEnumerator CoStartPunch()
     {
         // 피격 판정
         GameObject go = Managers.Object.Find(GetFrontCellPos());
-        if ( go != null)
+        if (go != null)
         {
             Debug.Log($"{go.name}");
         }

@@ -25,7 +25,7 @@ public class ArrowController : CreatureController
                 transform.rotation = Quaternion.Euler(0, 0, -90);
                 break;
         }
-
+        State = CreatureState.Moving;
         base.Init();
     }
 
@@ -34,7 +34,7 @@ public class ArrowController : CreatureController
 
     }
 
-    protected override void UpdateIdle()
+    protected override void MoveToNextPos()
     {
         if (_dir != MoveDir.None)
         {
