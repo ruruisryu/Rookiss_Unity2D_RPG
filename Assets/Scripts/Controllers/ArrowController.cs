@@ -5,7 +5,6 @@ using static Define;
 
 public class ArrowController : CreatureController
 {
-
     protected override void Init()
     {
         _speed = 10.0f;
